@@ -1,17 +1,10 @@
-import math
 import sys
-n = int(sys.stdin.readline().rstrip())
 
-ans = 1
-flag = 0
+n = int(sys.stdin.readline())
 
-while n - flag:
-    flag += 1
-    n -= 1
+ans = [0, 1, 2, 3, 5, 8]
 
-    if n - flag < 0:
-        break
-
-    ans += (math.factorial(n) // (math.factorial(flag) * math.factorial(n - flag))) % 10007
-
-print(ans % 10007)
+for i in range(6, n + 1):
+    ans.append((ans[i-1] + ans[i-2]) % 10007)
+    
+print(ans[n])
