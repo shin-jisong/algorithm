@@ -16,10 +16,16 @@ def solution(numbers):
     for n in numbers:
         nums.append(n)
         
-    for r in range(1, len(nums) + 1):
-        for p in permutations(nums, r):
-            num = int(''.join(map(str, p)))
-            if is_prime(num):
-                primes.add(num)
+    def backtrack(current, used):
+        if current and is_prime(int(current)):
+            primes.add(int(current))
+        for i in range(len(nums)):
+            if not used[i]:
+                used[i] = True
+                backtrack(current + str(nums[i]), used)
+                used[i] = False
+                
+    used = [False] * len(nums)
+    backtrack("", used)
                 
     return len(primes)
